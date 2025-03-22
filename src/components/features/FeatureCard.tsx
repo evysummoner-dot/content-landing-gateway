@@ -23,7 +23,7 @@ const FeatureCard = ({
   return (
     <div 
       className={cn(
-        "p-6 rounded-xl transition-all duration-500 cursor-pointer relative",
+        "p-4 sm:p-6 rounded-xl transition-all duration-500 cursor-pointer relative",
         isActive 
           ? "bg-gradient-to-r from-white to-gray-50 shadow-lg scale-105 z-10" 
           : "bg-white hover:bg-gray-50",
@@ -32,15 +32,15 @@ const FeatureCard = ({
       style={{ transitionDelay: `${100 + index * 100}ms` }}
       onClick={onClick}
     >
-      <div className="flex items-start gap-4">
-        <div className="w-12 h-12 flex items-center justify-center rounded-full bg-stream-red/10 text-xl">
+      <div className="flex items-start gap-3 sm:gap-4">
+        <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full bg-stream-red/10 text-xl">
           {icon}
         </div>
         <div>
-          <h3 className="text-lg font-semibold text-stream-dark mb-2">
+          <h3 className="text-base sm:text-lg font-semibold text-stream-dark mb-1 sm:mb-2">
             {title}
           </h3>
-          <p className="text-stream-gray">
+          <p className="text-stream-gray text-sm sm:text-base">
             {description}
           </p>
         </div>
