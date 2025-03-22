@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 const CTA = () => {
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const whatsappLink = "https://wa.me/5511958447106";
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -51,6 +52,7 @@ const CTA = () => {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button 
                   className="bg-white text-stream-red hover:bg-white/90 font-medium rounded-md px-8 py-6 text-lg btn-bounce flex items-center gap-2 group"
+                  onClick={() => window.open(whatsappLink, '_blank')}
                 >
                   Assinar agora
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />

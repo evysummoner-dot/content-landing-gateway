@@ -60,6 +60,7 @@ const plans = [
 const Pricing = () => {
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const whatsappLink = "https://wa.me/5511958447106";
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -164,6 +165,7 @@ const Pricing = () => {
                       ? "bg-stream-red hover:bg-stream-red/90" 
                       : "bg-stream-blue hover:bg-stream-blue/90"
                   )}
+                  onClick={() => window.open(whatsappLink, '_blank')}
                 >
                   {plan.popular ? 'Assinar agora' : 'Começar'}
                 </Button>

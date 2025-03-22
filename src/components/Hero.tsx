@@ -14,6 +14,8 @@ const Hero = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  const whatsappLink = "https://wa.me/5511958447106";
+
   return (
     <section className="relative h-screen w-full overflow-hidden bg-stream-darkBlue">
       {/* Background with overlay */}
@@ -40,7 +42,10 @@ const Hero = () => {
           </p>
           
           <div className={`flex flex-col sm:flex-row gap-4 sm:gap-6 transition-all duration-700 delay-300 ${isVisible ? 'opacity-100' : 'opacity-0 translate-y-10'}`}>
-            <Button className="bg-stream-red hover:bg-stream-red/90 text-white font-medium rounded-md px-8 py-6 text-lg btn-bounce flex items-center gap-2 group">
+            <Button 
+              className="bg-stream-red hover:bg-stream-red/90 text-white font-medium rounded-md px-8 py-6 text-lg btn-bounce flex items-center gap-2 group"
+              onClick={() => window.open(whatsappLink, '_blank')}
+            >
               Assinar agora
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
