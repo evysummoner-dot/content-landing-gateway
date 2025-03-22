@@ -1,6 +1,13 @@
+
 import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
-import { Check, TrendingUp, Shield, Clock, Zap, ArrowRight } from 'lucide-react';
+import { TrendingUp, Shield, Clock, Zap, ArrowRight } from 'lucide-react';
+import FeatureCard from './features/FeatureCard';
+import PlatformCard from './features/PlatformCard';
+import FeatureBenefit from './features/FeatureBenefit';
+import WhyChooseCard from './features/WhyChooseCard';
+import SectionTitle from './features/SectionTitle';
+import { Button } from '@/components/ui/button';
 
 const features = [
   {
@@ -57,10 +64,18 @@ const whyChooseUs = [
   },
 ];
 
+const benefits = [
+  'Economize mais de 70% comparado às assinaturas individuais',
+  'Suporte técnico 24/7 em português',
+  'Sem necessidade de VPN ou configurações técnicas',
+  'Atualização constante com os últimos lançamentos'
+];
+
 const Features = () => {
   const [activeFeature, setActiveFeature] = useState(0);
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const whatsappLink = "https://wa.me/5511958447106";
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -90,113 +105,77 @@ const Features = () => {
   return (
     <section 
       ref={sectionRef} 
-      className="py-20 bg-white overflow-hidden"
+      className="py-20 bg-gradient-to-b from-white via-gray-50 to-white overflow-hidden"
       id="recursos"
     >
       <div className="container px-6 lg:px-8 mx-auto">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 
-            className={cn(
-              "text-3xl md:text-4xl font-bold text-stream-dark mb-4 transition-all duration-700", 
-              visible ? "opacity-100" : "opacity-0 translate-y-8"
-            )}
-          >
-            Tudo o que você precisa em um único lugar
-          </h2>
-          <p 
-            className={cn(
-              "text-stream-gray text-lg transition-all duration-700 delay-100", 
-              visible ? "opacity-100" : "opacity-0 translate-y-8"
-            )}
-          >
-            Esqueça múltiplas assinaturas. Com TelSTREAM, você tem acesso a todo conteúdo que ama por uma fração do preço.
-          </p>
-        </div>
+        <SectionTitle 
+          title="Tudo o que você precisa em um único lugar"
+          subtitle="Esqueça múltiplas assinaturas. Com TelSTREAM, você tem acesso a todo conteúdo que ama por uma fração do preço."
+          visible={visible}
+        />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
           {/* Left side - Features */}
           <div className="space-y-6">
             {features.map((feature, index) => (
-              <div 
+              <FeatureCard
                 key={index}
-                className={cn(
-                  "p-6 rounded-xl transition-all duration-500 cursor-pointer relative",
-                  activeFeature === index 
-                    ? "bg-gradient-to-r from-white to-gray-50 shadow-lg scale-105 z-10" 
-                    : "bg-white hover:bg-gray-50",
-                  visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-                )}
-                style={{ transitionDelay: `${100 + index * 100}ms` }}
+                icon={feature.icon}
+                title={feature.title}
+                description={feature.description}
+                isActive={activeFeature === index}
+                index={index}
+                visible={visible}
                 onClick={() => setActiveFeature(index)}
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 flex items-center justify-center rounded-full bg-stream-red/10 text-xl">
-                    {feature.icon}
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-stream-dark mb-2">
-                      {feature.title}
-                    </h3>
-                    <p className="text-stream-gray">
-                      {feature.description}
-                    </p>
-                  </div>
-                </div>
-                {activeFeature === index && (
-                  <div className="absolute -right-2 top-1/2 -translate-y-1/2 h-8 w-8 bg-white transform rotate-45 border-r border-t border-gray-100 hidden lg:block"></div>
-                )}
-              </div>
+              />
             ))}
           </div>
 
           {/* Right side - Platforms */}
           <div 
             className={cn(
-              "bg-gray-50 p-8 rounded-2xl shadow-xl transition-all duration-700 delay-300",
+              "bg-gradient-to-br from-gray-50 to-white p-8 rounded-2xl shadow-xl transition-all duration-700 delay-300",
               visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
             )}
           >
-            <h3 className="text-xl font-semibold text-stream-dark mb-6">
+            <h3 className="text-xl font-semibold text-stream-dark mb-6 border-b pb-3 border-gray-200">
               Plataformas inclusas na sua assinatura:
             </h3>
             
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
               {platforms.map((platform, index) => (
-                <div 
-                  key={index} 
-                  className="bg-white p-4 rounded-lg shadow-sm flex items-center gap-3 card-hover"
-                  style={{ animationDelay: `${400 + index * 100}ms` }}
-                >
-                  <div className={`w-10 h-10 rounded-full ${platform.color} flex items-center justify-center text-white overflow-hidden`}>
-                    {platform.logo ? (
-                      <img src={platform.logo} alt={platform.name} className="w-full h-full object-cover" />
-                    ) : (
-                      <span className="text-xs">{platform.name.charAt(0)}</span>
-                    )}
-                  </div>
-                  <span className="font-medium text-stream-dark">{platform.name}</span>
-                </div>
+                <PlatformCard
+                  key={index}
+                  name={platform.name}
+                  color={platform.color}
+                  logo={platform.logo}
+                  index={index}
+                />
               ))}
             </div>
             
             <div className="mt-8 pt-6 border-t border-gray-200">
-              <h4 className="font-semibold text-stream-dark mb-4">
+              <h4 className="font-semibold text-stream-dark mb-4 flex items-center">
+                <span className="w-1.5 h-5 bg-stream-red rounded-sm mr-2 inline-block"></span>
                 Benefícios da nossa solução:
               </h4>
               
               <ul className="space-y-3">
-                {[
-                  'Economize mais de 70% comparado às assinaturas individuais',
-                  'Suporte técnico 24/7 em português',
-                  'Sem necessidade de VPN ou configurações técnicas',
-                  'Atualização constante com os últimos lançamentos'
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-2">
-                    <Check className="text-stream-red w-5 h-5 mt-0.5 flex-shrink-0" />
-                    <span className="text-stream-gray">{item}</span>
-                  </li>
+                {benefits.map((benefit, i) => (
+                  <FeatureBenefit key={i} text={benefit} />
                 ))}
               </ul>
+
+              <div className="mt-6 pt-4">
+                <Button 
+                  className="w-full bg-stream-red hover:bg-stream-red/90 text-white px-6 py-5 rounded-md font-medium flex items-center justify-center group"
+                  onClick={() => window.open(whatsappLink, '_blank')}
+                >
+                  <span>Assinar agora</span>
+                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -204,11 +183,12 @@ const Features = () => {
         {/* Why Choose Us Section */}
         <div 
           className={cn(
-            "bg-gray-50 rounded-2xl p-8 md:p-12 mt-16 transition-all duration-700 delay-400",
+            "bg-gradient-to-r from-gray-50 to-white rounded-2xl p-8 md:p-12 mt-16 shadow-lg transition-all duration-700 delay-400",
             visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
           )}
         >
           <div className="text-center mb-12">
+            <div className="w-20 h-1 bg-stream-red mx-auto mb-6 rounded-full"></div>
             <h3 className="text-2xl md:text-3xl font-bold text-stream-dark mb-4">
               Por que escolher TelSTREAM?
             </h3>
@@ -220,22 +200,19 @@ const Features = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {whyChooseUs.map((item, index) => (
-              <div 
+              <WhyChooseCard 
                 key={index}
-                className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all"
-              >
-                <div className="w-12 h-12 flex items-center justify-center rounded-full bg-stream-red/10 mb-4">
-                  {item.icon}
-                </div>
-                <h4 className="text-lg font-semibold text-stream-dark mb-2">{item.title}</h4>
-                <p className="text-stream-gray">{item.description}</p>
-              </div>
+                title={item.title}
+                description={item.description}
+                icon={item.icon}
+                index={index}
+              />
             ))}
           </div>
 
           <div className="mt-10 text-center">
             <a 
-              href="https://wa.me/5511958447106"
+              href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-stream-red font-medium hover:underline"
