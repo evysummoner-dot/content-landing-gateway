@@ -24,6 +24,9 @@ const Index = () => {
             behavior: 'smooth',
             block: 'start',
           });
+          
+          // Update URL without page reload
+          window.history.pushState(null, '', href);
         }
       }
     };
@@ -32,10 +35,14 @@ const Index = () => {
       anchor.addEventListener('click', smoothScroll as EventListener);
     });
 
+    // Add a class to the body for animations
+    document.body.classList.add('page-loaded');
+
     return () => {
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.removeEventListener('click', smoothScroll as EventListener);
       });
+      document.body.classList.remove('page-loaded');
     };
   }, []);
 

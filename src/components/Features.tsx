@@ -1,7 +1,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
-import { Check } from 'lucide-react';
+import { Check, TrendingUp, Shield, Clock, Zap } from 'lucide-react';
 
 const features = [
   {
@@ -27,12 +27,35 @@ const features = [
 ];
 
 const platforms = [
-  { name: 'Netflix', color: 'bg-red-600' },
-  { name: 'Disney+', color: 'bg-blue-600' },
-  { name: 'Prime Video', color: 'bg-blue-900' },
-  { name: 'Sky', color: 'bg-sky-500' },
-  { name: 'HBO Max', color: 'bg-purple-800' },
-  { name: 'Globoplay', color: 'bg-red-500' },
+  { name: 'Netflix', color: 'bg-red-600', logo: '/lovable-uploads/netflix.jpg' },
+  { name: 'Disney+', color: 'bg-blue-600', logo: '/lovable-uploads/disney.jpg' },
+  { name: 'Prime Video', color: 'bg-blue-900', logo: '/lovable-uploads/amazon.jpg' },
+  { name: 'Sky', color: 'bg-sky-500', logo: '/lovable-uploads/sky.jpg' },
+  { name: 'HBO Max', color: 'bg-purple-800', logo: '/lovable-uploads/hbo.jpg' },
+  { name: 'Globoplay', color: 'bg-red-500', logo: '/lovable-uploads/globoplay.jpg' },
+];
+
+const whyChooseUs = [
+  {
+    title: 'Economia Real',
+    description: 'Economize mais de 70% comparado às assinaturas individuais de cada plataforma.',
+    icon: <TrendingUp className="text-stream-red" />,
+  },
+  {
+    title: 'Suporte 24/7',
+    description: 'Atendimento técnico disponível a qualquer hora, em português, para resolver suas dúvidas.',
+    icon: <Shield className="text-stream-red" />,
+  },
+  {
+    title: 'Sem Complicações',
+    description: 'Sem necessidade de VPN ou configurações técnicas complexas. Tudo funciona imediatamente.',
+    icon: <Zap className="text-stream-red" />,
+  },
+  {
+    title: 'Sempre Atualizado',
+    description: 'Conteúdo constantemente atualizado com os últimos lançamentos de todas as plataformas.',
+    icon: <Clock className="text-stream-red" />,
+  },
 ];
 
 const Features = () => {
@@ -69,6 +92,7 @@ const Features = () => {
     <section 
       ref={sectionRef} 
       className="py-20 bg-white overflow-hidden"
+      id="recursos"
     >
       <div className="container px-6 lg:px-8 mx-auto">
         <div className="text-center max-w-2xl mx-auto mb-16">
@@ -90,7 +114,7 @@ const Features = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
           {/* Left side - Features */}
           <div className="space-y-6">
             {features.map((feature, index) => (
@@ -144,8 +168,12 @@ const Features = () => {
                   className="bg-white p-4 rounded-lg shadow-sm flex items-center gap-3 card-hover"
                   style={{ animationDelay: `${400 + index * 100}ms` }}
                 >
-                  <div className={`w-8 h-8 rounded-full ${platform.color} flex items-center justify-center text-white text-xs`}>
-                    {platform.name.charAt(0)}
+                  <div className={`w-10 h-10 rounded-full ${platform.color} flex items-center justify-center text-white overflow-hidden`}>
+                    {platform.logo ? (
+                      <img src={platform.logo} alt={platform.name} className="w-full h-full object-cover" />
+                    ) : (
+                      <span className="text-xs">{platform.name.charAt(0)}</span>
+                    )}
                   </div>
                   <span className="font-medium text-stream-dark">{platform.name}</span>
                 </div>
@@ -154,7 +182,7 @@ const Features = () => {
             
             <div className="mt-8 pt-6 border-t border-gray-200">
               <h4 className="font-semibold text-stream-dark mb-4">
-                Por que escolher TelSTREAM?
+                Benefícios da nossa solução:
               </h4>
               
               <ul className="space-y-3">
@@ -171,6 +199,51 @@ const Features = () => {
                 ))}
               </ul>
             </div>
+          </div>
+        </div>
+
+        {/* Why Choose Us Section */}
+        <div 
+          className={cn(
+            "bg-gray-50 rounded-2xl p-8 md:p-12 mt-16 transition-all duration-700 delay-400",
+            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+          )}
+        >
+          <div className="text-center mb-12">
+            <h3 className="text-2xl md:text-3xl font-bold text-stream-dark mb-4">
+              Por que escolher TelSTREAM?
+            </h3>
+            <p className="text-stream-gray max-w-2xl mx-auto">
+              Nossa solução foi projetada para oferecer a melhor experiência de streaming, 
+              com foco na simplicidade, economia e qualidade.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {whyChooseUs.map((item, index) => (
+              <div 
+                key={index}
+                className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all"
+              >
+                <div className="w-12 h-12 flex items-center justify-center rounded-full bg-stream-red/10 mb-4">
+                  {item.icon}
+                </div>
+                <h4 className="text-lg font-semibold text-stream-dark mb-2">{item.title}</h4>
+                <p className="text-stream-gray">{item.description}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 text-center">
+            <a 
+              href="https://wa.me/5511958447106"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-stream-red font-medium hover:underline"
+            >
+              <span>Fale com um consultor agora mesmo</span>
+              <ArrowRight size={16} />
+            </a>
           </div>
         </div>
       </div>

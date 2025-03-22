@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 import { Star } from 'lucide-react';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 const testimonials = [
   {
@@ -9,24 +10,28 @@ const testimonials = [
     role: 'Assinante há 8 meses',
     content: 'Melhor decisão que tomei! Agora assisto tudo o que quero sem precisar ficar alternando entre vários apps. A qualidade é excelente e o preço é imbatível.',
     rating: 5,
+    image: '/lovable-uploads/marcelo.jpg',
   },
   {
     name: 'Ana Carolina',
     role: 'Assinante há 3 meses',
     content: 'Eu estava pagando mais de R$150 por mês com todas as assinaturas separadas. Com o TelSTREAM, tenho tudo por uma fração do preço, e a qualidade é idêntica.',
     rating: 5,
+    image: '/lovable-uploads/ana.jpg',
   },
   {
     name: 'Pedro Mendes',
     role: 'Assinante há 1 ano',
     content: 'Sou o tipo de pessoa que assiste séries de diversas plataformas. O TelSTREAM simplificou minha vida e economizou meu dinheiro. Serviço impecável!',
     rating: 5,
+    image: '/lovable-uploads/pedro.jpg',
   },
   {
     name: 'Juliana Costa',
     role: 'Assinante há 5 meses',
     content: 'O atendimento ao cliente é excelente. Tive algumas dúvidas iniciais e resolveram tudo rapidamente. O acesso a todo conteúdo das principais plataformas por esse preço é incrível.',
     rating: 4,
+    image: '/lovable-uploads/juliana.jpg',
   },
 ];
 
@@ -64,6 +69,7 @@ const Testimonials = () => {
     <section 
       ref={sectionRef}
       className="py-20 bg-stream-darkBlue text-white overflow-hidden relative"
+      id="depoimentos"
     >
       {/* Background decoration */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden opacity-10">
@@ -115,9 +121,12 @@ const Testimonials = () => {
               <p className="text-white/80 mb-6">"{testimonial.content}"</p>
               
               <div className="flex items-center">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-stream-red to-stream-blue flex items-center justify-center text-white font-medium">
-                  {testimonial.name.charAt(0)}
-                </div>
+                <Avatar className="w-12 h-12 border-2 border-white/20">
+                  <AvatarImage src={testimonial.image} alt={testimonial.name} />
+                  <AvatarFallback className="bg-gradient-to-br from-stream-red to-stream-blue text-white font-medium">
+                    {testimonial.name.charAt(0)}
+                  </AvatarFallback>
+                </Avatar>
                 <div className="ml-3">
                   <h4 className="font-medium">{testimonial.name}</h4>
                   <p className="text-sm text-white/60">{testimonial.role}</p>
@@ -129,7 +138,7 @@ const Testimonials = () => {
         
         {/* Mobile testimonials slider */}
         <div className="block md:hidden">
-          <div className="relative h-64 overflow-hidden">
+          <div className="relative h-auto pb-24 overflow-hidden">
             {testimonials.map((testimonial, index) => (
               <div 
                 key={index}
@@ -155,9 +164,12 @@ const Testimonials = () => {
                 <p className="text-white/80 mb-6">"{testimonial.content}"</p>
                 
                 <div className="flex items-center">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-stream-red to-stream-blue flex items-center justify-center text-white font-medium">
-                    {testimonial.name.charAt(0)}
-                  </div>
+                  <Avatar className="w-12 h-12 border-2 border-white/20">
+                    <AvatarImage src={testimonial.image} alt={testimonial.name} />
+                    <AvatarFallback className="bg-gradient-to-br from-stream-red to-stream-blue text-white font-medium">
+                      {testimonial.name.charAt(0)}
+                    </AvatarFallback>
+                  </Avatar>
                   <div className="ml-3">
                     <h4 className="font-medium">{testimonial.name}</h4>
                     <p className="text-sm text-white/60">{testimonial.role}</p>
